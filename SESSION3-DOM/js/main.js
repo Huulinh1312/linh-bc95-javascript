@@ -48,3 +48,10 @@ console.log("Function ES6:",add1(3,4))
 console.log("Function 1 line code ES6:",add2(3,4))
 console.log("Function 2 parameter and 1 line code:",binhPhuong(3))
 
+//HEAD
+//th1: revert 1 hoặc nhiều commit đầu tiên : HEAD~n
+
+//TH2: gom nhiều commit về 1 commit , làm đẹp lịch sử push code 
+//git rebase -i HEAD~n
+
+//TH3 : để quay lại n commit để lấy code cũ
