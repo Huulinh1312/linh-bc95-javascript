@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript DOM</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-100 p6">
+    <div class="mx-auto max-w-3xl bg-white rounded-lg p-6">
+      <h1 class="text-center text-blue-500 text-2xl mb-4">DOM Exercise</h1>
+
+      <!-- BÀI 1: getElementById + innerText -->
+      <div class="bg-blue-200 rounded-lg">
+        <h2 class="font-bold text-indigo-500 mb-2">
+          Bài 1: getElementById + innerText
+        </h2>
+        <p id="text-result" class="bg-gray-300 p-3 rounded mb-2">
+          Đây là nơi hiển thị nội dung Text
+        </p>
+        <button
+          id="btn-result"
+          class="bg-orange-400 text-white px-3 py-2 rounded-md"
+        >
+          Click Me
+        </button>
+      </div>
+
+      <!-- Bài 2: Giả lập flow login -->
+      <!-- Username: -->
+      <div class="bg-blue-200 rounded-lg mt-4 p-4">
+        <div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Username:</label>
+            <input
+              type="text"
+              id="input-username"
+              placeholder="Nhập username: "
+              class="w-full border border-gray-600 rounded p-3"
+            />
+            thẻ p để hiển thị lỗi -->
+            <p class="hidden bg-red-200 text-white p-3 rounded-lg mt-1"></p>
+          </div>
+        </div>
+        <!-- Password: -->
+        <div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Password:</label>
+            <input
+              type="password"
+              id="input-password"
+              placeholder="Nhập password: "
+              class="w-full border border-gray-600 rounded p-3"
+            />
+            <!-- thẻ p để hiển thị lỗi -->
+            <p
+              id="result"
+              class="bg-red-200 text-white p-3 rounded-lg mt-1"
+            ></p>
+          </div>
+          <button
+            id="btn-login"
+            class="bg-blue-500 text-white p-2 rounded-lg mt-2"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+
+      <!-- Bài 3 : Tính Chu vi hình chữ nhật  -->
+      <div>
+        <!-- Chiều Dài -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Chiều Dài:</label>
+          <input
+            type="text"
+            id="input-length"
+            placeholder="Nhập chiều dài: "
+            class="w-full border border-gray-600 rounded p-3"
+          />
+          <!-- thẻ p để hiển thị lỗi -->
+          <p class="hidden bg-red-200 text-white p-3 rounded-lg mt-1"></p>
+        </div>
+        <!-- Chiều Rộng -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Chiều Rộng:</label>
+          <input
+            type="text"
+            id="input-width"
+            placeholder="Nhập chiều rộng: "
+            class="w-full border border-gray-600 rounded p-3"
+          />
+          <!-- thẻ p để hiển thị lỗi -->
+          <p
+            id="result-hcn"
+            class="bg-red-200 text-white p-3 rounded-lg mt-1"
+          ></p>
+        </div>
+      <button id="btn-tinh" class="bg-blue-500 text-white p-2 rounded-lg mt-2">
+        Tính
+      </button>
+      </div>
+
+
+      <!-- Bài 4: Tính Tổng số có 2 chữ số: -->
+      <div>
+          <label class="block text-sm font-medium mb-1">Tính Tổng 2 chữ số</label>
+          <input
+            type="text"
+            id="input-number"
+            placeholder="Nhập 2 chữ số: "
+            class="w-full border border-gray-600 rounded p-3"
+          />
+
+        <button id="btn-calc" class="bg-blue-500 text-white p-2 rounded-lg mt-2">
+        Tính
+        </button>
+          <!-- thẻ p để hiển thị lỗi -->
+          <p id="result-calc" class=" bg-blue-200  p-3 rounded-lg mt-1"></p>
+        </div>
+
+
+
+    </div>
+    <!-- Thứ tự import file js -->
+    <script src="js/main.js"></script>
+    <script src="js/bai2.js"></script>
+    <script src="js/bai3.js"></script>
+    <script src="js/bai4.js"></script>
+    <script src="js/ifElse.js"></script>
+  </body>
+</html>
