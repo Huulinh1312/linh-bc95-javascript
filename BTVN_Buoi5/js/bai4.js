@@ -110,3 +110,4 @@ elementBai4.form.addEventListener("submit", (event) => {
     }
     elementBai4.ketQua.innerText = `Mã khách hàng: ${maKH} - Tổng tiền: $${tongTien}`
 })
+//dsdasasd
