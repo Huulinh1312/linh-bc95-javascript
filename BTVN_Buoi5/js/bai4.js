@@ -11,10 +11,9 @@ const elementBai4 = {
     errorMaKH: document.getElementById("errorMaKH"),
     errorLoaiKH: document.getElementById("errorLoaiKH"),
     errorSoketNoi: document.getElementById("errorSoKetNoi"),
-    errorSoKenh: document.getElementById("errorSoKenh")
+    errorSoKenh: document.getElementById("errorSoKenhCaoCap") // Sửa ID cho khớp
 }
 
-// OBJECT LƯU GIÁ TRỊ
 const BANG_GIA = {
     nhaDan: {
         phiXuLy: 4.5,
@@ -23,69 +22,63 @@ const BANG_GIA = {
     },
     doanhNghiep: {
         phiXuLy: 15,
-        phiDichVu10Dau: 75, // 10 kết nối đầu tiên
-        phiKetNoiThem: 5, // 5$/ kết nối thêm
+        phiDichVu10Dau: 75,
+        phiKetNoiThem: 5,
         phiKenhCaoCap: 50
     }
 }
 
-// handle hidden/show input soKetNoi
+// Xử lý ẩn hiện ô nhập số kết nối [cite: 55]
 elementBai4.loaiKH.addEventListener("change", () => {
     const loai = elementBai4.loaiKH.value
-    console.log("loai", loai)
-
-    if(loai === "nhaDan") {
-        elementBai4.wrapKetNoi.classList.add("hidden")
-    } else {
+    if(loai === "doanhNghiep") {
         elementBai4.wrapKetNoi.classList.remove("hidden")
+    } else {
+        elementBai4.wrapKetNoi.classList.add("hidden")
     }
 })
 
-// tạo hàm ẩn lỗi
 const hideErrorBai4 = (errElement) => {
+    if(!errElement) return
     errElement.innerText = ""
     errElement.classList.add("hidden")
 }
 
-// tạo hàm show lỗi
 const showErrorBai4 = (errElement, message) => {
+    if(!errElement) return
     errElement.innerText = message
     errElement.classList.remove("hidden")
 }
 
 const validationInputBai4 = (maKH, loaiKH, soKetNoi, soKenh) => {
     let isValid = true
-
-    // reset lỗi
     hideErrorBai4(elementBai4.errorMaKH)
     hideErrorBai4(elementBai4.errorLoaiKH)
     hideErrorBai4(elementBai4.errorSoketNoi)
-    hideErrorBai4(elementBai4.errorSoKenh)
 
-    // BTVN
+    if (maKH === "") {
+        isValid = false
+        alert("Vui lòng nhập Mã khách hàng")
+    }
+    if (loaiKH === "") {
+        isValid = false
+        alert("Vui lòng chọn Loại khách hàng")
+    }
+    return isValid
 }
 
 const tinhHoaDonNhaDan = (soKenh) => {
     const gia = BANG_GIA.nhaDan
-
-    const tongTien = gia.phiXuLy + gia.phiDichVu + (soKenh * gia.phiKenhCaoCap)
-    return tongTien
+    return gia.phiXuLy + gia.phiDichVu + (soKenh * gia.phiKenhCaoCap)
 }
 
 const tinhHoaDonDoanhNghiep = (soKetNoi, soKenh) => {
     const gia = BANG_GIA.doanhNghiep
-
-    let phiDichVu = gia.phiDichVu10Dau // default = 75$ (cho 10 kết nối đầu)
-    // 1-10 kết nối đầu -> 75$
-    // soKetNoi = 15
+    let phiDichVu = gia.phiDichVu10Dau 
     if (soKetNoi > 10) {
-        const soKetNoiThem = soKetNoi - 10
-        phiDichVu = gia.phiDichVu10Dau + (soKetNoiThem * gia.phiKetNoiThem)
-        // phiDichVu = 75 + (5 * 5) = 100
+        phiDichVu = gia.phiDichVu10Dau + ((soKetNoi - 10) * gia.phiKetNoiThem)
     }
-
-    const tongTien = gia.phiXuLy + phiDichVu + (soKenh * gia.phiKenhCaoCap)
-    return tongTien
+    return gia.phiXuLy + phiDichVu + (soKenh * gia.phiKenhCaoCap)
 }
 
 elementBai4.form.addEventListener("submit", (event) => {
@@ -97,17 +90,16 @@ elementBai4.form.addEventListener("submit", (event) => {
     const soKenh = Number(elementBai4.soKenh.value)
 
     const isValid = validationInputBai4(maKH, loaiKH, soKetNoi, soKenh)
-    if (!isValid) {
-        return
-    }
+    if (!isValid) return
 
-    // tính hóa đơn - hiển thị kết quả -> BTVN
     let tongTien = 0
     if (loaiKH === "nhaDan") {
         tongTien = tinhHoaDonNhaDan(soKenh)
     } else {
         tongTien = tinhHoaDonDoanhNghiep(soKetNoi, soKenh)
     }
-    elementBai4.ketQua.innerText = `Mã khách hàng: ${maKH} - Tổng tiền: $${tongTien}`
+
+    // Hiển thị kết quả ra màn hình [cite: 4]
+    elementBai4.ketQua.innerText = `Mã khách hàng: ${maKH} - Tổng tiền cáp: $${tongTien.toFixed(2)}`
+    elementBai4.ketQua.classList.remove("hidden")
 })
-//dsdasasd
