@@ -155,15 +155,15 @@ el.overlayGioHang.addEventListener("click", closePopupGioHang)
 el.btnGioHang.addEventListener("click", () => {
     el.popupGioHang.classList.remove("hidden")
     // Kiểm tra nếu giỏ hàng rỗng thì hiển thị thông báo
-    if(gioHang.length === 0) {
-        el.popupGioHang.innerHTML = `
-            <h2>Giỏ hàng</h2>
-            <p class="text-gray-500 text-center">Giỏ hàng của bạn đang trống</p>
-        `
-        return
-    }
+    // if(gioHang.length === 0) {
+    //     el.popupGioHang.innerHTML = `
+    //         <h2>Giỏ hàng</h2>
+    //         <p class="text-gray-500 text-center">Giỏ hàng của bạn đang trống</p>
+    //     `
+    //     return
+    // }
     //continue: hiển thị danh sách sản phẩm trong giỏ hàng
-    
+
 })
 
 // hàm lấy danh sách sản phẩm từ API
