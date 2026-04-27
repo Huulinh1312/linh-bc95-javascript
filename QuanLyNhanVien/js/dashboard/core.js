@@ -1,18 +1,8 @@
 export const state = {
-    danhSachNV: [
-        {
-            taiKhoan: "nguyen-van-a",
-            hoTen: "Nguyễn Văn A",
-            email: "nguyen.van.a@email.com",
-            ngayLamViec: "01/01/2020",
-            chucVu: "Nhân viên",
-            luong: "15,000,000"
-        }
-    ], // lưu trữ danh sách nhân viên
+    danhSachNV: [], 
     editingNV: null
 }
 
-// define các element cần thao tác với DOM ở đây để tiện sử dụng lại
 export const elements = {
     taiKhoan: document.getElementById("tknv"),
     hoTen: document.getElementById("name"),
@@ -22,12 +12,55 @@ export const elements = {
     luongCB: document.getElementById("luongCB"),
     chucVu: document.getElementById("chucvu"),
     gioLam: document.getElementById("gioLam"),
-    btnThemNV: document.getElementById("btnThem"),
-    btnTaoNVModal: document.getElementById("btnThemNV"),
-    btnCapNhat: document.getElementById("btnCapNhat"),
+    
+    // Nút chức năng (Đã map lại theo đúng HTML)
+    btnMoModal: document.getElementById("btnThem"),        // Nút mở Modal
+    btnSubmitThem: document.getElementById("btnThemNV"),   // Nút Thêm trong Modal
+    btnSubmitCapNhat: document.getElementById("btnCapNhat"), // Nút Cập nhật trong Modal
+    
+    searchName: document.getElementById("searchName"),
+    btnTimNV: document.getElementById("btnTimNV"),
     tableDanhSachNV: document.getElementById("tableDanhSach"),
 
-    // modal thêm/sửa nhân viên
     modal: document.getElementById("myModal"),
-    titleModel: document.getElementById("header-title")
+    titleModel: document.getElementById("header-title"),
+
+    // Các thẻ span hiển thị lỗi
+    tbTKNV: document.getElementById("tbTKNV"),
+    tbTen: document.getElementById("tbTen"),
+    tbEmail: document.getElementById("tbEmail"),
+    tbMatKhau: document.getElementById("tbMatKhau"),
+    tbNgay: document.getElementById("tbNgay"),
+    tbLuongCB: document.getElementById("tbLuongCB"),
+    tbChucVu: document.getElementById("tbChucVu"),
+    tbGiolam: document.getElementById("tbGiolam")
+}
+
+export class NhanVien {
+    constructor(taiKhoan, hoTen, email, matKhau, ngayLamViec, luongCB, chucVu, gioLam) {
+        this.taiKhoan = taiKhoan;
+        this.hoTen = hoTen;
+        this.email = email;
+        this.matKhau = matKhau;
+        this.ngayLamViec = ngayLamViec;
+        this.luongCB = Number(luongCB);
+        this.chucVu = chucVu;
+        this.gioLam = Number(gioLam);
+        this.tongLuong = this.tinhTongLuong();
+        this.loaiNV = this.xepLoai();
+    }
+
+    tinhTongLuong() {
+        // Cập nhật để khớp với <option>Sếp</option> trong HTML
+        if (this.chucVu === "Sếp" || this.chucVu === "Giám đốc") return this.luongCB * 3;
+        if (this.chucVu === "Trưởng phòng") return this.luongCB * 2;
+        return this.luongCB; // Nhân viên
+    }
+
+    xepLoai() {
+        if (this.gioLam >= 192) return "Xuất sắc";
+        if (this.gioLam >= 176) return "Giỏi";
+        if (this.gioLam >= 160) return "Khá";
+        return "Trung bình";
+    }
 }

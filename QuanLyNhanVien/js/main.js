@@ -1,27 +1,54 @@
-// DOMContentLoaded là sự kiện được kích hoạt khi DOM đã được tải xong,
 import { elements } from "./dashboard/core.js"
-import { themNV } from "./dashboard/crud-flow.js"
+import { themNV, xoaNV, layThongTinNV, capNhatNV, timKiemNV, xoaForm } from "./dashboard/crud-flow.js"
 import { renderDanhSachNV } from "./dashboard/ui-flow.js"
 
-// lúc này chúng ta có thể an toàn thao tác với DOM
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM đã được tải xong, có thể thao tác với DOM tại đây")
+    
+    // Nút mở Modal bên ngoài giao diện
+    elements.btnMoModal?.addEventListener("click", () => {
+        elements.titleModel.innerText = "Thêm nhân viên";
+        elements.btnSubmitThem.style.display = "block";
+        elements.btnSubmitCapNhat.style.display = "none";
+        
+        // Reset sạch form
+        xoaForm();
+        
+        // Mở modal thông qua jQuery do xài Bootstrap 4
+        $('#myModal').modal('show');
+    });
 
-    // state để lưu trữ dữ liệu: danh sách nhân viên, nhân viên đang được
-    // chỉnh sửa, trạng thái hiển thị modal,...
+    // Nút submit Thêm trong Modal
+    elements.btnSubmitThem?.addEventListener("click", () => {
+        themNV();
+    });
 
-    //thêm event click cho nút "Thêm nhân viên" để hiển thị modal thêm nhân viên
-    elements.btnThemNV.addEventListener("click", () => {
-        // hiển thị modal thêm nhân viên
-        elements.modal.style.display = "block"
-        elements.modal.classList.add("show")
-        // set tiêu đề cho modal
-        elements.titleModel.innerText = "Thêm nhân viên"
+    // Nút submit Cập Nhật trong Modal
+    elements.btnSubmitCapNhat?.addEventListener("click", () => {
+        capNhatNV();
+    });
 
-        // gọi hàm thêm nhân viên mới
-        themNV()
-    })
+    // Xóa/Sửa thông qua Event Delegation trên Table
+    elements.tableDanhSachNV?.addEventListener("click", (e) => {
+        // Tìm button cha gần nhất (tránh trường hợp click trúng thẻ icon <i>)
+        const btn = e.target.closest('button');
+        if (!btn) return;
 
-    // Bài 1: render danh sách nhân viên
-    renderDanhSachNV()
-})
+        if (btn.classList.contains("btn-delete")) {
+            const tk = btn.getAttribute("data-id");
+            xoaNV(tk);
+        }
+        
+        if (btn.classList.contains("btn-edit")) {
+            const tk = btn.getAttribute("data-id");
+            layThongTinNV(tk);
+        }
+    });
+
+    // Tìm kiếm realtime
+    elements.searchName?.addEventListener("keyup", (e) => {
+        timKiemNV(e.target.value);
+    });
+
+    // Render bảng ban đầu
+    renderDanhSachNV();
+});
